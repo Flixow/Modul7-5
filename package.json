@@ -9,8 +9,13 @@
   "license": "ISC",
   "devDependencies": {
     "browser-sync": "^2.12.8",
+    "browser-sync-ui": "^0.6.0",
     "grunt": "^1.0.1",
+    "grunt-browser-sync": "^2.2.0",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-cssmin": "^1.0.1",
     "grunt-contrib-imagemin": "^1.0.1",
+    "grunt-contrib-watch": "^1.0.0",
     "grunt-sass": "^1.2.0",
     "gulp": "^3.9.1",
     "gulp-sass": "^2.3.1"
