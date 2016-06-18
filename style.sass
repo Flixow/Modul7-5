@@ -1,0 +1,541 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700&subset=latin,latin-ext)
+@import url(https://fonts.googleapis.com/css?family=Gloria+Hallelujah)
+
+=slider($name)
+  @-webkit-keyframes #{$name}
+    @content
+  @-moz-keyframes #{$name}
+    @content
+  @-ms-keyframes #{$name}
+    @content
+  @keyframes #{$name}
+    @content
+
+@mixin prefix($property, $value, $vendors: webkit moz ms o)
+	@if $vendors 
+		@each $vendor in $vendors 
+			#{"-" + $vendor + "-" + $property}: #{$value}
+	#{$property}: #{$value}
+
+@mixin bradius($radius)
+  -webkit-border-radius: $radius
+  border-radius: $radius
+  background-clip: padding-box
+
+// VARIABLES
+$prim_color: #00C7E8
+
+.ver-hor-center
+	display: inline-flex
+	justify-content: center
+	align-items: center
+
+* 
+	box-sizing: border-box
+
+body 
+	font-family: "Open Sans Condensed" 
+	margin: 0 
+	background: #fff
+	font-size: 18px
+	overflow-x: hidden
+	cursor: default
+
+	h1 
+		font-size: 36px
+		margin: 15px 0
+		font-weight: 700
+
+	p 
+		font-size: 22px
+
+	section 
+		display: flex
+		padding: 50px 0
+		background-color: #fff
+		text-align: center
+		img
+			width: 100%
+
+header 
+	background-color: #2B2D2C
+
+nav 
+	display: flex
+	align-items: center
+	position: relative
+
+	> ul 
+		list-style: none
+		display: inline-flex
+		margin-left: auto
+		padding: 0 10px
+		flex-wrap: wrap
+		>li
+			padding: 10px 0
+			a
+				text-decoration: none
+				font-size: 1.2em
+				color: #fff
+				padding: 0 20px
+				text-transform: uppercase
+				font-weight: 700
+				letter-spacing: 1px
+				border-bottom: 2px solid #666
+				padding-bottom: 5px
+				&:hover,
+				&:active
+					color: $prim_color
+					border-bottom: 2px solid $prim_color
+	input[type="checkbox"] 
+		display: none
+
+	&:before,
+	&:after 
+		content: ""
+		display: table
+		clear: both
+
+#hamburger-menu 
+	position: absolute
+	right: 15px
+	top: 15px
+	display: none
+	cursor: pointer
+	.layer 
+		width: 30px
+		height: 5px
+		@include bradius(30px)
+		background-color: #fff
+		margin: 2px 0
+	&:hover
+		.layer
+			background-color: $prim_color
+
+
+input[type=checkbox]:checked ~ #main-nav 
+	visibility: visible
+	opacity: 1
+	transform: scaleY(1)
+	display: block
+
+
+section.jumbotron 
+	width: 100%
+	height: calc(100vh - 90px)
+	position: relative
+	margin: 0
+	padding: 0
+	.slogan 
+		background-color: rgba(0,0,0,0.5)
+		h1 
+			color: #fff
+			font-size: 2em
+			margin: 10px 0
+			text-align: center
+	.slider  
+		overflow: hidden
+		height: 100%
+		.slides  
+			position: relative
+			width: 300%
+			height: 100%
+			animation: 25s slide infinite
+			.slide  
+				width: 33.33%
+				height: 100%
+				float: left
+				background-size: cover
+				background-position: center
+				display: flex
+				align-items: center
+
+#slide1 
+	background-image: url(https://static.pexels.com/photos/40120/pexels-photo-40120.jpeg)
+
+#slide2 
+	background-image: url(https://static.pexels.com/photos/6357/coffee-cup-desk-pen.jpg)
+
+#slide3 
+	background-image: url(https://static.pexels.com/photos/7105/coffee-iphone-laptop-notebook.jpg)
+
++slider(slide) 
+	0%  
+		left: 0%
+	33%  
+		left: 0%
+	38%  
+		left: -100%
+	66%  
+		left: -100%
+	71%  
+		left: -200%
+	100%  
+		left: -200%
+
+.icon
+	i
+		@extend .ver-hor-center
+		font-size: 80px
+		background-color: #2B2D2C
+		@include bradius(20%)
+		color: #fff
+		padding: 20px
+		width: 150px
+		height: 150px
+	&:nth-of-type(even) i
+		background-color: $prim_color
+	&:nth-of-type(even) h1
+		color: $prim_color
+	h1
+		text-transform: uppercase
+	p
+		color: #666
+	.photo
+		@include bradius(50%)
+		display: inline-block
+		width: 200px
+		height: 200px
+		overflow: hidden
+		position: relative
+
+		.caption
+			@extend .ver-hor-center
+			top: 0
+			left: 0
+			position: absolute
+			width: 100%
+			height: 100%
+			background-color: rgba(0,0,0,0.3)
+			color: #fff
+			font-size: 2em
+			font-weight: 700
+			opacity: 0
+			transition: 1s
+			@include bradius(50%)
+		&:hover .caption
+			opacity: 1
+
+section header 
+	background-color: #fff
+	text-align: center
+	padding: 30px 15px!important
+	h1 
+		font-size: 3.5em
+		color: $prim_color
+		text-transform: uppercase
+
+section.portfolio 
+	display: flex
+	flex-wrap: wrap
+	padding: 0
+	header 
+		background-color: #E4E4E4
+	.image 
+		overflow: hidden
+		position: relative
+		padding: 0
+		&:hover 
+			img 
+				cursor: pointer
+				+prefix(transform, scale(1.2), webkit ms)
+				position: relative
+			.caption 
+				width: 100%
+				height: 100%
+				opacity: 1
+				&:before,
+				&:after
+					opacity: 1
+				&:before
+					height: 100%
+				&:after
+					width: 100%
+		.caption
+			@extend .ver-hor-center
+			background-color: rgba(0,0,0,0.5)
+			position: absolute
+			width: 0
+			height: 0
+			top: 0
+			left: 0
+			transition-duration: 0.5s
+			opacity: 0
+			&:before,
+			&:after
+				content: ""
+				background-color: $prim_color
+				position: absolute
+				transition-delay: 0.5s
+				transition-duration: 0.5s
+				opacity: 0
+			&:before
+				top: 0
+				right: 8%
+				width: 3px
+				height: 0
+			&:after
+				bottom: 8%
+				left: 0
+				width: 0
+				height: 3px
+			i 
+				background-color: #fff
+				color: #565656
+				padding: 20px
+				@include bradius(10px)
+				margin: 0 10px
+				cursor: pointer
+				&:hover
+					color: $prim_color
+	img 
+		height: 100%
+		transition: 1s
+		display: flex
+
+section.team 
+	padding: 50px 0
+	text-align: center
+	h1 
+		text-transform: capitalize
+
+section.team,
+section.motto 
+	color: #fff
+	text-shadow: 1px 1px 5px #000
+	background-color: rgba(0, 0, 0, 0.5)
+
+section.motto 
+	position: relative
+	.title 
+		text-align: left
+	h1 
+		display: inline-block
+		text-transform: uppercase
+		padding-bottom: 5px
+		border-bottom: 2px solid #fff
+	img 
+		@include bradius(10px)
+		opacity: .8
+	p 
+		letter-spacing: 2px
+	video 
+		position: fixed
+		top: 0
+		left: 0
+		width: 100vw
+		z-index: -100
+
+
+section.statistics 
+	font-family: 'Gloria Hallelujah'
+	font-weight: 700
+	h2 
+		font-size: 32px
+	h3 
+		color: $prim_color
+		font-size: 28px
+		text-transform: uppercase
+
+footer 
+	background-color: #252726
+	position: absolute
+	text-align: center
+	color: #fff
+	padding-top: 30px
+	h1 
+		position: relative
+		display: inline-block
+		line-height: 1
+		text-transform: uppercase
+		&:before 
+			content: ""
+			position: absolute
+			height: 10px
+			border-bottom: 4px solid white
+			width: 100px
+			left: 100%
+			margin-left: 15px
+	p,
+	.row 
+		color: #666
+		font-weight: 700
+	.row 
+		font-size: 22px
+		margin: 5px 0
+		.left 
+			text-align: right
+			font-weight: 700
+		.right 
+			text-align: left
+	a 
+		text-decoration: none
+		color: #666
+		transition-duration: .5s
+		&:hover 
+			color: $prim_color
+	.icon 
+		display: inline-block
+		margin: 5px
+		i 
+			font-size: 28px
+			width: 50px
+			height: 50px
+			padding: 5px
+			@include bradius(0)
+			background-color: $prim_color
+			cursor: pointer
+	.copyrights 
+		background-color: #1D1D1D
+		padding: 30px 0
+		font-size: 20px
+		border-top: 1px solid rgba(56,56,56,0.6)
+
+.container 
+	width: 100%
+	padding: 10px 15px
+	margin-right: auto
+	margin-left: auto
+	max-width: 1200px
+
+.row 
+	color: #ccc
+	&:before,
+	&:after 
+		content: ""
+		display: table
+		clear: both
+
+[class*="col-"] 
+	float: left
+	min-height: 1px
+	padding: 15px
+
+.col-offset-1 
+	margin-left: 8.33%
+.col-offset-2 
+	margin-left: 16.66%
+.col-offset-3 
+	margin-left: 25%
+.col-offset-4 
+	margin-left: 33.33%
+.col-offset-5 
+	margin-left: 41.66%
+.col-offset-6 
+	margin-left: 50%
+.col-offset-7 
+	margin-left: 58.33%
+.col-offset-8 
+	margin-left: 66.66%
+.col-offset-9 
+	margin-left: 75%
+.col-offset-10 
+	margin-left: 83.33%
+.col-offset-11 
+	margin-left: 91.66%
+
+
+@media (max-width: 768px) 
+	section.motto video 
+		display: none
+	nav 
+		display: block
+		text-align: center
+		> ul 
+			display: block
+			margin: 0
+			margin: 0
+			position: absolute
+			z-index: 10
+			background-color: #2B2D2C
+			left: 0
+			margin-top: 10px
+			width: 100%
+	#main-nav 
+		visibility: hidden
+		opacity: 0
+		transform: scaleY(0)
+		transform-origin: 100% 0
+		+prefix(transition, all .5s ease, webkit)
+	#hamburger-menu 
+		display: block
+
+	section.jumbotron .slogan h1 
+		font-size: 1.5em
+
+	section.motto 
+		background-color: #DCA000
+
+	section.motto .image 
+		display: none
+
+	section.portfolio .image .caption 
+		opacity: 1
+		width: 40%
+		height: 20%
+		background-color: rgba(0,0,0,0.2)
+		top: 40%
+		left: 30%
+
+	section.portfolio .image:hover .caption 
+		opacity: 1
+		width: 40%
+		height: 20%
+		background-color: rgba(0,0,0,0.2)
+		top: 40%
+		left: 30%
+
+@media screen and (min-width: 480px) and (max-width: 767px)
+	/* For tablets: */
+	.col-s-1 
+		width: 8.33%
+	.col-s-2 
+		width: 16.66%
+	.col-s-3 
+		width: 25%
+	.col-s-4 
+		width: 33.33%
+	.col-s-5 
+		width: 41.66%
+	.col-s-6 
+		width: 50%
+	.col-s-7 
+		width: 58.33%
+	.col-s-8 
+		width: 66.66%
+	.col-s-9 
+		width: 75%
+	.col-s-10
+		width: 83.33%
+	.col-s-11
+		width: 91.66%
+	.col-s-12
+		width: 100%
+
+@media (min-width: 768px) 
+	/* For desktop: */
+	.col-m-1 
+		width: 8.33%
+	.col-m-2 
+		width: 16.66%
+	.col-m-3 
+		width: 25%
+	.col-m-4 
+		width: 33.33%
+	.col-m-5 
+		width: 41.66%
+	.col-m-6 
+		width: 50%
+	.col-m-7 
+		width: 58.33%
+	.col-m-8 
+		width: 66.66%
+	.col-m-9 
+		width: 75%
+	.col-m-10 
+		width: 83.33%
+	.col-m-11 
+		width: 91.66%
+	.col-m-12 
+		width: 100%
+  
